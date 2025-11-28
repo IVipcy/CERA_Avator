@@ -487,9 +487,10 @@ class AzureSpeechClient:
 class ElevenLabsClient:
     """ElevenLabs音声合成クライアント"""
     
-    def __init__(self, api_key=None, voice_id=None):
+    def __init__(self, api_key=None, voice_id=None, model_id=None):
         self.api_key = api_key
         self.voice_id = voice_id or "21m00Tcm4TlvDq8ikWAM"  # デフォルト音声
+        self.model_id = model_id or "eleven_multilingual_v2"  # デフォルトモデル
         self.base_url = "https://api.elevenlabs.io/v1"
         
         # 🆕 京セラ専門用語辞書を外部ファイルから読み込み
@@ -646,7 +647,7 @@ class ElevenLabsClient:
         
         data = {
             'text': processed_text,
-            'model_id': 'eleven_multilingual_v2',  # 日本語対応モデル
+            'model_id': self.model_id,  # 環境変数から読み取ったモデルID
             'voice_settings': {
                 'stability': stability,
                 'similarity_boost': similarity_boost,
@@ -736,14 +737,15 @@ def initialize_system():
     # 🆕 ElevenLabs初期化（日本語用 - 最優先）
     elevenlabs_key = os.getenv('ELEVENLABS_API_KEY')
     elevenlabs_voice_id = os.getenv('ELEVENLABS_VOICE_ID', '21m00Tcm4TlvDq8ikWAM')
+    elevenlabs_model_id = os.getenv('ELEVENLABS_MODEL_ID', 'eleven_multilingual_v2')
     elevenlabs_enabled = os.getenv('ELEVENLABS_ENABLED', 'false').lower() == 'true'
     
     if elevenlabs_enabled and elevenlabs_key:
         try:
-            elevenlabs_client = ElevenLabsClient(elevenlabs_key, elevenlabs_voice_id)
+            elevenlabs_client = ElevenLabsClient(elevenlabs_key, elevenlabs_voice_id, elevenlabs_model_id)
             if elevenlabs_client.test_connection():
                 use_elevenlabs = True
-                print(f"✅ ElevenLabs初期化完了 (音声ID: {elevenlabs_voice_id})")
+                print(f"✅ ElevenLabs初期化完了 (音声ID: {elevenlabs_voice_id}, モデル: {elevenlabs_model_id})")
             else:
                 print("⚠️ ElevenLabs接続テスト失敗")
         except Exception as e:
