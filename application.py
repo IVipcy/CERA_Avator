@@ -292,7 +292,7 @@ audio_cache = {}
 QUIZ_DATA = {
     'ja': [
         {
-            'question': 'CERAが話していた「スマホのカメラレンズに使われる傷つきにくい素材」は何でしょう？',
+            'question': 'CERAが話していた「京セラが結晶を育てる技術を持っている、傷つきにくい硬い素材」は何でしょう？',
             'options': [
                 'A) 強化ガラス',
                 'B) サファイアガラス',
@@ -324,7 +324,7 @@ QUIZ_DATA = {
     ],
     'en': [
         {
-            'question': 'What is the scratch-resistant material CERA mentioned that\'s used in smartphone camera lenses?',
+            'question': 'What is the hard, scratch-resistant material that CERA mentioned Kyocera has the technology to grow?',
             'options': [
                 'A) Tempered glass',
                 'B) Sapphire glass',
@@ -490,7 +490,7 @@ class ElevenLabsClient:
     def __init__(self, api_key=None, voice_id=None, model_id=None):
         self.api_key = api_key
         self.voice_id = voice_id or "21m00Tcm4TlvDq8ikWAM"  # デフォルト音声
-        self.model_id = model_id or "eleven_multilingual_v2"  # デフォルトモデル
+        self.model_id = model_id or "eleven_v3"  # デフォルトモデル
         self.base_url = "https://api.elevenlabs.io/v1"
         
         # 🆕 京セラ専門用語辞書を外部ファイルから読み込み
@@ -737,7 +737,7 @@ def initialize_system():
     # 🆕 ElevenLabs初期化（日本語用 - 最優先）
     elevenlabs_key = os.getenv('ELEVENLABS_API_KEY')
     elevenlabs_voice_id = os.getenv('ELEVENLABS_VOICE_ID', '21m00Tcm4TlvDq8ikWAM')
-    elevenlabs_model_id = os.getenv('ELEVENLABS_MODEL_ID', 'eleven_multilingual_v2')
+    elevenlabs_model_id = os.getenv('ELEVENLABS_MODEL_ID', 'eleven_v3')
     elevenlabs_enabled = os.getenv('ELEVENLABS_ENABLED', 'false').lower() == 'true'
     
     if elevenlabs_enabled and elevenlabs_key:
