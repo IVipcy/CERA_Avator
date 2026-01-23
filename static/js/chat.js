@@ -770,7 +770,7 @@
         }
         
         if (domElements.changeLanguageBtn) {
-            domElements.changeLanguageBtn.addEventListener('click', showLanguageModal);
+            domElements.changeLanguageBtn.addEventListener('click', () => showLanguageModal(true));
         }
         
         if (domElements.selectJapanese) {
@@ -1158,7 +1158,22 @@
     }
     
     // ====== 言語設定 ======
-    function showLanguageModal() {
+    function showLanguageModal(forceShow = false) {
+        // 設定ボタンから呼ばれた場合以外で、既に言語設定が保存されている場合はモーダルを表示しない
+        if (!forceShow) {
+            try {
+                const savedLanguage = localStorage.getItem('preferred_language');
+                if (savedLanguage && (savedLanguage === 'ja' || savedLanguage === 'en')) {
+                    console.log(`💾 保存済みの言語設定を使用: ${savedLanguage}`);
+                    selectLanguage(savedLanguage);
+                    return;
+                }
+            } catch (e) {
+                console.warn('言語設定の確認に失敗:', e);
+            }
+        }
+        
+        // 初回訪問時 or 設定ボタンクリック時にモーダルを表示
         if (!domElements.languageModal) {
             console.error('❌ 言語選択モーダルが見つかりません');
             selectLanguage('ja');
@@ -1172,7 +1187,7 @@
         }
         
         domElements.languageModal.style.display = 'flex';
-        console.log('✅ 言語選択モーダル表示完了');
+        console.log(forceShow ? '✅ 言語選択モーダル表示完了（設定変更）' : '✅ 言語選択モーダル表示完了（初回訪問）');
     }
     
     function selectLanguage(language) {
@@ -2614,14 +2629,15 @@
         console.log('サーバーに接続しました');
         updateConnectionStatus('connected');
         
-        try {
-            const savedLanguage = localStorage.getItem('preferred_language');
-            if (savedLanguage && (savedLanguage === 'ja' || savedLanguage === 'en')) {
-                selectLanguage(savedLanguage);
-            }
-        } catch (e) {
-            console.warn('保存済み言語設定の読み込みに失敗:', e);
-        }
+        // Socket接続時の自動言語選択は削除（初期化時に既に処理済み）
+        // try {
+        //     const savedLanguage = localStorage.getItem('preferred_language');
+        //     if (savedLanguage && (savedLanguage === 'ja' || savedLanguage === 'en')) {
+        //         selectLanguage(savedLanguage);
+        //     }
+        // } catch (e) {
+        //     console.warn('保存済み言語設定の読み込みに失敗:', e);
+        // }
         
         const visitorTimer = setTimeout(() => {
             sendVisitorInfo();
