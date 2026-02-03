@@ -1077,11 +1077,34 @@ class RAGSystem:
             # 応答パターンを取得(精神状態対応版)
             response_patterns = self.get_response_pattern(emotion=next_emotion)
             
-            # さらに質問に直接関連する情報を検索
-            search_results = self.db.similarity_search(question, k=3)
+            # 🎯 【グラウンディング強化】スコア付きで検索
+            search_results_with_score = self.db.similarity_search_with_score(question, k=3)
+            
+            # 🆕 信頼度チェック（ハルシネーション防止）
+            if not search_results_with_score:
+                # 検索結果なし
+                print(f"⚠️ グラウンディングチェック: 検索結果なし")
+                if language == 'en':
+                    return "I'm sorry, but I don't have information about that in my knowledge base. Please check Kyocera's official website."
+                else:
+                    return "申し訳ございません。その質問については、私の知識ベースに情報がありません。京セラの公式サイトでご確認ください。"
+            
+            best_doc, best_score = search_results_with_score[0]
+            
+            # 🆕 類似度が低すぎる場合は回答拒否（閾値: 0.5）
+            if best_score < 0.5:
+                print(f"⚠️ グラウンディングチェック: 信頼度低 (スコア: {best_score:.2f})")
+                if language == 'en':
+                    return "I'm sorry, but I don't have reliable information about that question. Please check Kyocera's official website for accurate information."
+                else:
+                    return "申し訳ございません。その質問については、確実な情報が私の知識ベースにありません。正確な情報は京セラの公式サイトでご確認ください。[EMOTION:neutral]"
+            
+            # ✅ 十分な情報がある場合のみ回答生成
+            print(f"✅ グラウンディングチェック: 信頼度OK (スコア: {best_score:.2f})")
+            
             # 検索結果を短縮(各結果の最初の150文字まで)
             search_context_parts = []
-            for doc in search_results:
+            for doc, score in search_results_with_score:
                 content = doc.page_content
                 if len(content) > 150:
                     content = content[:150] + "..."
@@ -1201,9 +1224,9 @@ Examples:
             
             # 🎯 【修正④】OpenAI APIでmax_tokensを調整(文章の自然な完結を優先)
             response = self.openai_client.chat.completions.create(
-                model="gpt-4",
+                model="gpt-4o",  # 🔧 gpt-4 → gpt-4o (コスト83%削減、性能向上)
                 messages=messages,
-                max_tokens=150,  # 🔧 100 → 150に変更(日本語約250~300文字相当、英語約60語)
+                max_tokens=300,  # 🔧 150 → 300に変更(日本語約500文字、英語約120語)
                 temperature=0.7
             )
             
