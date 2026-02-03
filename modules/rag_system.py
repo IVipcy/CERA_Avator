@@ -1091,16 +1091,18 @@ class RAGSystem:
             
             best_doc, best_score = search_results_with_score[0]
             
-            # 🆕 類似度が低すぎる場合は回答拒否（閾値: 0.5）
-            if best_score < 0.5:
-                print(f"⚠️ グラウンディングチェック: 信頼度低 (スコア: {best_score:.2f})")
+            # 🆕 類似度が低すぎる場合は回答拒否
+            # 注意: ChromaDBのスコアは「距離」なので、値が大きいほど類似度が低い
+            # 閾値: 1.5（コサイン距離で1.5以上は関連性が低いと判断）
+            if best_score > 1.5:
+                print(f"⚠️ グラウンディングチェック: 信頼度低 (距離: {best_score:.2f})")
                 if language == 'en':
                     return "I'm sorry, but I don't have reliable information about that question. Please check Kyocera's official website for accurate information."
                 else:
                     return "申し訳ございません。その質問については、確実な情報が私の知識ベースにありません。正確な情報は京セラの公式サイトでご確認ください。[EMOTION:neutral]"
             
             # ✅ 十分な情報がある場合のみ回答生成
-            print(f"✅ グラウンディングチェック: 信頼度OK (スコア: {best_score:.2f})")
+            print(f"✅ グラウンディングチェック: 信頼度OK (距離: {best_score:.2f})")
             
             # 検索結果を短縮(各結果の最初の150文字まで)
             search_context_parts = []
