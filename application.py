@@ -292,14 +292,14 @@ audio_cache = {}
 QUIZ_DATA = {
     'ja': [
         {
-            'question': 'CERAが話していた「京セラが結晶を育てる技術を持っている、傷つきにくい硬い素材」は何でしょう？',
+            'question': '海音みらが話していた「京セラが結晶を育てる技術を持っている、傷つきにくい硬い素材」は何でしょう？',
             'options': [
                 'A) 強化ガラス',
                 'B) サファイアガラス',
                 'C) ダイヤモンドコーティング'
             ],
             'correct': 1,
-            'explanation': 'サファイアガラスです！京セラは結晶を「育てる」技術を持っていて、この硬い素材が色んな製品に使われています。CERAは結晶を育てることに愛着を持っているんですよ✨'
+            'explanation': 'サファイアガラスです！京セラは結晶を「育てる」技術を持っていて、この硬い素材が色んな製品に使われています。海音みらは結晶を育てることに愛着を持っているんですよ✨'
         },
         {
             'question': '京セラは「セラミックの会社」というイメージが強いですが、実際には様々な事業を展開しています。次のうち京セラが手がけていないものはどれ？',
@@ -324,14 +324,14 @@ QUIZ_DATA = {
     ],
     'en': [
         {
-            'question': 'What is the hard, scratch-resistant material that CERA mentioned Kyocera has the technology to grow?',
+            'question': 'What is the hard, scratch-resistant material that Mira Kaine mentioned Kyocera has the technology to grow?',
             'options': [
                 'A) Tempered glass',
                 'B) Sapphire glass',
                 'C) Diamond coating'
             ],
             'correct': 1,
-            'explanation': 'It\'s sapphire glass! Kyocera has the technology to "grow" crystals, and this hard material is used in various products. CERA really loves the process of growing crystals✨'
+            'explanation': 'It\'s sapphire glass! Kyocera has the technology to "grow" crystals, and this hard material is used in various products. Mira really loves the process of growing crystals✨'
         },
         {
             'question': 'Kyocera is known as a "ceramics company," but actually does business in various fields. Which of these does Kyocera NOT do?',
