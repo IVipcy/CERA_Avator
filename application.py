@@ -324,7 +324,7 @@ QUIZ_DATA = {
     ],
     'en': [
         {
-            'question': 'What is the hard, scratch-resistant material that Mira Kaine mentioned Kyocera has the technology to grow?',
+            'question': 'What is the hard, scratch-resistant material that Mira Amane mentioned Kyocera has the technology to grow?',
             'options': [
                 'A) Tempered glass',
                 'B) Sapphire glass',
