@@ -842,7 +842,8 @@ def get_visitor_data(visitor_id):
             'topics_discussed': [],
             'personality_traits': {},
             'relationship_level': 0,
-            'selected_suggestions': set()
+            'selected_suggestions': set(),
+            'user_type': None  # 🆕 再訪問時に使用
         }
     return visitor_data[visitor_id]
 
@@ -1531,6 +1532,12 @@ def handle_user_type_selection(data):
     session_info['user_type'] = user_type
     session_info['language'] = language
     
+    # 🆕 訪問者データにも保存（再訪問時に使用）
+    visitor_id = request.cookies.get('visitor_id')
+    if visitor_id and visitor_id in visitor_data:
+        visitor_data[visitor_id]['user_type'] = user_type
+        print(f"💾 訪問者データにuser_type保存: {visitor_id[:8]}... → {user_type}")
+    
     # 属性に応じたメッセージ
     if user_type == 'business':
         response_message = {
@@ -1609,8 +1616,21 @@ def handle_connect():
             'relationship_style': 'formal'
         }
         
-        # 初回接続の場合
-        if session_data[session_id]['first_interaction']:
+        # 初回接続 vs 再訪問の判定
+        is_first_visit = True  # デフォルトは初回
+        previous_selections = []
+        
+        if visitor_id and visitor_id in visitor_data:
+            v_data = visitor_data[visitor_id]
+            # 訪問回数が2回以上 = 再訪問
+            if v_data.get('visit_count', 1) > 1:
+                is_first_visit = False
+                # 前回選択したサジェスチョンを取得（setをlistに変換）
+                previous_selections = list(v_data.get('selected_suggestions', set()))
+                print(f"🔄 再訪問者: {visitor_id[:8]}... (前回選択: {len(previous_selections)}個)")
+        
+        # 初回訪問の場合
+        if is_first_visit:
             try:
                 # 🆕 京セラ 海音みら用: 自己紹介メッセージ
                 intro_message = "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。7-8分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。"
@@ -1655,6 +1675,114 @@ def handle_connect():
                 
             except Exception as e:
                 print(f"❌ 挨拶生成エラー: {e}")
+                emit('error', {'message': '初期化中にエラーが発生しました'})
+        
+        # 🔄 再訪問者の場合
+        else:
+            try:
+                # 訪問者の情報を取得
+                visitor_info = visitor_data.get(visitor_id, {})
+                user_type = visitor_info.get('user_type', None)
+                
+                # まだuser_type未設定の場合は、初回と同じ流れにする
+                if not user_type:
+                    print(f"⚠️ 再訪問者ですがuser_type未設定 → 初回扱い")
+                    # 初回自己紹介メッセージ
+                    intro_message = "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。7-8分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。"
+                    intro_emotion = 'start'
+                    intro_emotion = validate_emotion(intro_emotion)
+                    
+                    try:
+                        audio_data = generate_audio_by_language(
+                            intro_message, 
+                            'ja', 
+                            emotion_params=intro_emotion
+                        )
+                    except Exception as e:
+                        print(f"❌ 挨拶音声生成エラー: {e}")
+                        audio_data = None
+                    
+                    greeting_data = {
+                        'message': intro_message,
+                        'emotion': intro_emotion,
+                        'audio': audio_data,
+                        'isGreeting': True,
+                        'language': 'ja',
+                        'voice_engine': 'elevenlabs' if use_elevenlabs else ('azure_speech' if use_azure_speech else 'openai_tts'),
+                        'relationshipLevel': 'formal',
+                        'mentalState': session_data[session_id]['mental_state'],
+                        'suggestions': []
+                    }
+                    
+                    emit('greeting', greeting_data)
+                    update_emotion_history(session_id, intro_emotion)
+                    session_data[session_id]['first_interaction'] = False
+                    return
+                
+                # user_typeが設定済みの場合 → おかえりメッセージ + 続きのサジェスチョン
+                welcome_back_message = "おかえりなさい！前回の続きからお話しできますね。どのテーマに興味がありますか？"
+                welcome_emotion = 'happy'
+                
+                # 感情を検証
+                welcome_emotion = validate_emotion(welcome_emotion)
+                
+                # 音声生成
+                try:
+                    audio_data = generate_audio_by_language(
+                        welcome_back_message, 
+                        'ja', 
+                        emotion_params=welcome_emotion
+                    )
+                except Exception as e:
+                    print(f"❌ おかえり音声生成エラー: {e}")
+                    audio_data = None
+                
+                # 訪問者の現在の関係性レベルを取得
+                conversation_count = visitor_info.get('total_conversations', 0)
+                rel_info = calculate_relationship_level(conversation_count)
+                relationship_style = rel_info['style']
+                
+                # セッションデータにも保存
+                session_data[session_id]['selected_suggestions'] = previous_selections
+                session_data[session_id]['relationship_style'] = relationship_style
+                session_data[session_id]['user_type'] = user_type
+                
+                # 🎯 前回の続きからサジェスチョンを生成
+                selected_count = len(previous_selections)
+                current_phase = static_qa_data.get_current_phase(selected_count)
+                remaining_suggestions = static_qa_data.get_suggestions_for_phase(
+                    current_phase,
+                    selected_suggestions=previous_selections,
+                    user_type=user_type
+                )
+                
+                print(f"📍 選択済み: {selected_count}個, Phase: {current_phase}, 残り: {len(remaining_suggestions)}個")
+                
+                # 再訪問挨拶データ
+                greeting_data = {
+                    'message': welcome_back_message,
+                    'emotion': welcome_emotion,
+                    'audio': audio_data,
+                    'isGreeting': True,
+                    'language': 'ja',
+                    'voice_engine': 'elevenlabs' if use_elevenlabs else ('azure_speech' if use_azure_speech else 'openai_tts'),
+                    'relationshipLevel': relationship_style,
+                    'mentalState': session_data[session_id]['mental_state'],
+                    'suggestions': remaining_suggestions[:5]  # 最大5個まで表示
+                }
+                
+                emit('greeting', greeting_data)
+                
+                # 感情履歴を更新
+                update_emotion_history(session_id, welcome_emotion)
+                
+                # 初回フラグを更新
+                session_data[session_id]['first_interaction'] = False
+                
+            except Exception as e:
+                print(f"❌ おかえり挨拶生成エラー: {e}")
+                import traceback
+                traceback.print_exc()
                 emit('error', {'message': '初期化中にエラーが発生しました'})
     
     else:
