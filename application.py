@@ -1963,9 +1963,8 @@ def handle_disconnect():
             })
         except Exception as e:
             print(f"⚠️ セッションログ記録エラー: {e}")
-    
-    print(f"🔌 クライアント切断: {session_id}")
         
+        # セッションデータをクリア
         del session_data[session_id]
     
     print(f'🔌 クライアント切断: {session_id}')
