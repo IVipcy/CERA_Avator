@@ -690,14 +690,16 @@ def calculate_relationship_level(conversation_count):
         return {'level': 2, 'style': 'friendly', 'name': 'Level 2'}
     elif conversation_count < 8:
         return {'level': 3, 'style': 'close', 'name': 'Level 3'}
-    else:
+    elif conversation_count < 10:
         return {'level': 4, 'style': 'best_friend', 'name': 'MAX'}
+    else:
+        return {'level': 5, 'style': 'master', 'name': 'Master'}
 
 def get_relationship_adjusted_greeting(language, relationship_style):
-    """関係性レベルに応じた挨拶を生成（🆕 京セラCERA版）"""
+    """関係性レベルに応じた挨拶を生成（🆕 京セラ 海音みら版）"""
     greetings = {
         'ja': {
-            'formal': "私はCERAといいます。みなさんに京セラの魅力を頑張ってお伝えします。アメリカ育ちで少し漢字が苦手ですが、何でも質問してくださいね！",
+            'formal': "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。7-8分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。",
             'polite': "こんにちは！また会えて嬉しいです。今日はどんなお話をしましょうか？",
             'friendly': "やっほー！会いたかったよ〜！今日も楽しくお話しようね！",
             'casual': "おっす！元気にしてた？なんか面白い話ある？"
@@ -1590,8 +1592,8 @@ def handle_connect():
         # 初回接続の場合
         if session_data[session_id]['first_interaction']:
             try:
-                # 🆕 京セラCERA用: 自己紹介メッセージ（簡潔版）
-                intro_message = "私はCERAといいます。みなさんに京セラの魅力を頑張ってお伝えします。アメリカ育ちで少し漢字が苦手ですが、何でも質問してくださいね！"
+                # 🆕 京セラ 海音みら用: 自己紹介メッセージ
+                intro_message = "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。7-8分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。"
                 intro_emotion = 'start'  # Startモーション使用
                 
                 # 感情を検証
