@@ -21,6 +21,7 @@ import requests
 from modules.rag_system import RAGSystem
 from modules.speech_processor import SpeechProcessor
 from survey_integration import SurveyManager, SURVEY_QUESTIONS
+from analytics_logger import analytics_logger
 from pathlib import Path
 import azure.cognitiveservices.speech as speechsdk
 from dotenv import load_dotenv
@@ -796,6 +797,12 @@ def initialize_system():
     else:
         print("⚠️ アンケートシステムは無効化されています")
     
+    # Analytics Logger初期化確認
+    if analytics_logger.enabled:
+        print("✅ アナリティクスログ機能初期化完了")
+    else:
+        print("⚠️ アナリティクスログ機能は無効化されています")
+    
     print("🎉 システム初期化完了")
     print(f"📊 音声エンジン状況: ElevenLabs={use_elevenlabs}, Azure={use_azure_speech}, OpenAI TTS=常に利用可能")
 
@@ -1261,6 +1268,19 @@ def update_visitor_data(visitor_id, session_info):
         # 選択されたサジェスチョンの更新
         for suggestion in session_info.get('selected_suggestions', []):
             v_data['selected_suggestions'].add(suggestion)
+        
+        # 🆕 Google Sheetsに訪問者ログを記録
+        try:
+            analytics_logger.log_visitor({
+                'visitor_id': visitor_id,
+                'first_visit': v_data.get('first_visit', ''),
+                'last_visit': v_data.get('last_visit', ''),
+                'visit_count': v_data.get('visit_count', 0),
+                'total_conversations': v_data.get('total_conversations', 0),
+                'relationship_level': v_data.get('relationship_level', 0)
+            })
+        except Exception as e:
+            print(f"⚠️ 訪問者ログ記録エラー: {e}")
 
 def update_emotion_history(session_id, emotion, mental_state=None):
     """🎯 感情履歴を更新"""
@@ -1794,6 +1814,30 @@ def handle_disconnect():
         if visitor_id:
             update_visitor_data(visitor_id, session_info)
         
+        # 🆕 セッション終了時刻を記録
+        session_info['conversation_end'] = datetime.now()
+        
+        # 🆕 Google Sheetsにセッションログを記録
+        try:
+            started_at = session_info.get('conversation_start')
+            ended_at = session_info.get('conversation_end')
+            
+            analytics_logger.log_session({
+                'session_id': session_id,
+                'visitor_id': visitor_id or '',
+                'started_at': started_at.isoformat() if started_at else '',
+                'ended_at': ended_at.isoformat() if ended_at else '',
+                'conversation_count': session_info.get('interaction_count', 0),
+                'language': session_info.get('language', 'ja'),
+                'user_type': session_info.get('user_type', ''),
+                'max_level_reached': visitor_data.get(visitor_id, {}).get('relationship_level', 0) if visitor_id else 0,
+                'quiz_completed': visitor_data.get(visitor_id, {}).get('quiz_completed', False) if visitor_id else False
+            })
+        except Exception as e:
+            print(f"⚠️ セッションログ記録エラー: {e}")
+    
+    print(f"🔌 クライアント切断: {session_id}")
+        
         del session_data[session_id]
     
     print(f'🔌 クライアント切断: {session_id}')
@@ -1889,6 +1933,19 @@ def handle_message(data):
         conversation_history = data.get('conversationHistory', [])
         interaction_count = data.get('interactionCount', session_info['interaction_count'])
         selected_suggestions_from_client = data.get('selectedSuggestions', [])
+        
+        # 🆕 質問ログを記録（Google Sheets）
+        if message and visitor_id:
+            try:
+                analytics_logger.log_question({
+                    'visitor_id': visitor_id,
+                    'session_id': session_id,
+                    'question': message[:500],  # 最大500文字まで
+                    'timestamp': datetime.now().isoformat()
+                })
+            except Exception as e:
+                # 質問ログは失敗しても処理を続行
+                pass
         
         # インタラクション数を更新
         session_info['interaction_count'] = interaction_count + 1
