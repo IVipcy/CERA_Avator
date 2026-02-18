@@ -480,6 +480,14 @@ qa_media_data = {
             "text": "京セラ新卒採用サイト →",
             "url": "https://www.kyocera.co.jp/recruit/new/"
         }
+    },
+    
+    # 🆕 ミニ四駆企業対抗選手権の詳細ページ
+    "ミニ四駆大会やワークショップに参加したい": {
+        "link": {
+            "text": "第4回ミニ四駆企業対抗選手権の詳細を見る →",
+            "url": "https://www.kyocera.co.jp/rd-openinnovation/news/mini4wd.html"
+        }
     }
 }
 
