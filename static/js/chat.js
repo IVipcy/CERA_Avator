@@ -522,7 +522,7 @@
     };
     
     // 🆕 京セラCERA用: ユーザー属性管理
-    let userTypeSelected = false;
+    let userTypeSelected = !!localStorage.getItem('user_type');
     
     // 言語切り替え時の挨拶処理フラグ
     let expectingLanguageChangeGreeting = false;
@@ -864,7 +864,13 @@
                 reconnectionDelay: 1000,
                 reconnectionDelayMax: 5000,
                 timeout: 20000,
-                forceNew: true
+                forceNew: true,
+                query: {
+                    visitor_id: visitorManager.visitorId,
+                    selected_suggestions: JSON.stringify(visitorManager.getSelectedSuggestions()),
+                    user_type: localStorage.getItem('user_type') || '',
+                    visit_count: String(visitorManager.visitData.visitCount)
+                }
             });
             
             window.socket = socket;
@@ -2577,6 +2583,12 @@
                 language: appState.currentLanguage
             });
             
+            try {
+                localStorage.setItem('user_type', type);
+            } catch (e) {
+                console.warn('user_type保存失敗:', e);
+            }
+            
             console.log(`✅ 属性選択を送信: ${type}`);
         } else {
             console.error('❌ Socket未接続 - 属性選択を送信できません');
@@ -3549,6 +3561,7 @@
     window.resetVisitorData = function() {
         localStorage.removeItem('visitor_id');
         localStorage.removeItem('visit_data');
+        localStorage.removeItem('user_type');
         console.log('訪問者データをリセットしました。ページをリロードしてください。');
     };
     
