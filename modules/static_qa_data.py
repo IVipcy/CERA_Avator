@@ -249,6 +249,64 @@ student_suggestions = {
 }
 
 # ==========================================
+# 英語版サジェスチョン
+# ==========================================
+
+business_suggestions_en = {
+    'phase1_overview': [
+        "Who is Mira Amane?",
+        "What kind of company is Kyocera?",
+        "What is the Research Center?",
+    ],
+    'phase2_technical': [
+        "What next-gen technologies is Kyocera working on?",
+        "What's unique about Kyocera's open innovation?",
+        "What is the CVC Fund?",
+    ],
+    'phase3_personal': [
+        "I want to join a Mini 4WD event!",
+        "I'd like to discuss collaboration",
+        "Tell me more about Mira Amane!",
+    ]
+}
+
+student_suggestions_en = {
+    'phase1_overview': [
+        "Who is Mira Amane?",
+        "What kind of company is Kyocera?",
+        "What kind of people work here?",
+    ],
+    'phase2_technical': [
+        "Where is Kyocera tech hidden in daily life?",
+        "What makes the work environment attractive?",
+        "How can I join Kyocera?",
+    ],
+    'phase3_personal': [
+        "Why did you choose Kyocera?",
+        "Tell me Mira's honest thoughts!",
+    ]
+}
+
+# 英語サジェスチョン → 日本語Q&Aキーへのマッピング
+suggestion_en_to_ja = {
+    "who is mira amane": "海音みらって誰",
+    "what kind of company is kyocera": "京セラってどんな会社",
+    "what is the research center": "リサーチセンターはどういう施設",
+    "what next-gen technologies is kyocera working on": "京セラが挑戦する次世代技術は",
+    "what's unique about kyocera's open innovation": "京セラのオープンイノベーションの特徴は",
+    "what is the cvc fund": "CVCファンドって何？どんなスタートアップと組んでる",
+    "i want to join a mini 4wd event": "ミニ四駆大会やワークショップに参加したい",
+    "i'd like to discuss collaboration": "協業の相談をしたい",
+    "tell me more about mira amane": "海音みらについてもっと詳しく",
+    "what kind of people work here": "どんな人が働いているの",
+    "where is kyocera tech hidden in daily life": "日常に隠れている京セラの技術は",
+    "what makes the work environment attractive": "働く環境の魅力は",
+    "how can i join kyocera": "京セラに入るにはどうすればいい",
+    "why did you choose kyocera": "なぜ京セラを選んだの",
+    "tell me mira's honest thoughts": "海音みらの本音を聞きたい",
+}
+
+# ==========================================
 # ヘルパー関数
 # ==========================================
 
@@ -267,20 +325,27 @@ def get_qa_by_user_type(user_type='business'):
     else:
         return business_qa_responses
 
-def get_suggestions_by_user_type(user_type='business'):
+def get_suggestions_by_user_type(user_type='business', language='ja'):
     """
-    ユーザータイプに応じたサジェスチョンデータを返す
+    ユーザータイプと言語に応じたサジェスチョンデータを返す
     
     Args:
         user_type: 'business' または 'student'
+        language: 'ja' または 'en'
     
     Returns:
         dict: 対応するサジェスチョンデータ
     """
-    if user_type == 'student':
-        return student_suggestions
+    if language == 'en':
+        if user_type == 'student':
+            return student_suggestions_en
+        else:
+            return business_suggestions_en
     else:
-        return business_suggestions
+        if user_type == 'student':
+            return student_suggestions
+        else:
+            return business_suggestions
 
 def get_current_phase(selected_count):
     """
@@ -313,6 +378,12 @@ def get_response_for_user(query, user_type='business', phase=None):
     """
     qa_data = get_qa_by_user_type(user_type)
     
+    # 英語サジェスチョンの場合、日本語キーに変換して検索
+    query_lower = query.lower().rstrip('?!？！。').strip()
+    ja_key = suggestion_en_to_ja.get(query_lower)
+    if ja_key:
+        query = ja_key
+    
     # 質問文を正規化
     query_normalized = query.lower().rstrip('?!？！。').strip()
     
@@ -333,21 +404,22 @@ def get_response_for_user(query, user_type='business', phase=None):
     
     return None
 
-def get_suggestions_for_phase(phase, selected_suggestions=[], user_type='business'):
+def get_suggestions_for_phase(phase, selected_suggestions=[], user_type='business', language='ja'):
     """
-    Phase別のサジェスチョンを取得（重複排除）
+    Phase別のサジェスチョンを取得（重複排除・多言語対応）
     
     Args:
         phase: Phaseキー
         selected_suggestions: これまでに選択されたサジェスチョンリスト
         user_type: 'business' または 'student'
+        language: 'ja' または 'en'
     
     Returns:
         list: サジェスチョンリスト（最大3個）
     """
     import random
     
-    suggestions_data = get_suggestions_by_user_type(user_type)
+    suggestions_data = get_suggestions_by_user_type(user_type, language)
     phase_suggestions = suggestions_data.get(phase, [])
     
     # 重複を排除
@@ -375,12 +447,12 @@ qa_media_data = {
     # 注意: 疑問符（？）はget_qa_media関数で自動正規化されるため不要
     
     # ビジネス向け & 学生向け共通
-    "CERAって誰": {
+    "海音みらって誰": {
         "images": [
             {
                 "url": "/static/media/Kyocera/labo.png",
-                "caption": "CERA（研究員）",
-                "alt": "CERA研究員の画像"
+                "caption": "海音みら（AIコンシェルジュ）",
+                "alt": "海音みらの画像"
             }
         ]
     },

@@ -706,7 +706,7 @@ def get_relationship_adjusted_greeting(language, relationship_style):
             'casual': "おっす！元気にしてた？なんか面白い話ある？"
         },
         'en': {
-            'formal': "My name is CERA. I'll do my best to share Kyocera's appeal with you! I grew up in America and kanji is a bit challenging for me, but feel free to ask me anything!",
+            'formal': "I'm Mira, the AI concierge at Kyocera Minato Mirai Research Center. I can help you learn about our open innovation initiatives, business events, and career opportunities. As we chat, your understanding level will increase. After about 7-8 minutes, you'll reach the max level and unlock a quiz and survey. Complete them to receive an original virtual background for Zoom or Google Meet!",
             'polite': "Hello again! It's nice to see you. What would you like to talk about today?",
             'friendly': "Hey there! I missed you! Let's have fun chatting today!",
             'casual': "Yo! How've you been? Got any interesting stories?"
@@ -1195,7 +1195,8 @@ def generate_prioritized_suggestions(session_info, visitor_info, relationship_st
         suggestions = get_suggestions_for_phase(
             phase=current_phase,
             selected_suggestions=selected_suggestions,
-            user_type=user_type
+            user_type=user_type,
+            language=language
         )
         
         print(f"[DEBUG] Generated suggestions: {suggestions}")
@@ -1554,7 +1555,7 @@ def handle_user_type_selection(data):
     
     # Phase1のサジェスチョンを取得
     from modules.static_qa_data import get_suggestions_for_phase
-    phase1_suggestions = get_suggestions_for_phase('phase1_overview', [], user_type)
+    phase1_suggestions = get_suggestions_for_phase('phase1_overview', [], user_type, language)
     
     # 音声生成
     try:
@@ -1708,10 +1709,12 @@ def handle_connect():
                 # 🎯 前回の続きからサジェスチョンを生成
                 from modules.static_qa_data import get_current_phase, get_suggestions_for_phase
                 current_phase = get_current_phase(selected_count)
+                client_language = session_data[session_id].get('language', 'ja')
                 remaining_suggestions = get_suggestions_for_phase(
                     current_phase,
                     selected_suggestions=previous_selections,
-                    user_type=user_type
+                    user_type=user_type,
+                    language=client_language
                 )
                 
                 print(f"📍 選択済み: {selected_count}個, Phase: {current_phase}, 残り: {len(remaining_suggestions)}個")
@@ -1802,7 +1805,8 @@ def handle_connect():
                 greeting_data['suggestions'] = get_suggestions_for_phase(
                     current_phase, 
                     data.get('selected_suggestions', []), 
-                    user_type
+                    user_type,
+                    language
                 )
             except Exception as e:
                 print(f"⚠️ サジェスチョン生成エラー: {e}")
@@ -1875,7 +1879,8 @@ def handle_set_language(data):
             greeting_data['suggestions'] = get_suggestions_for_phase(
                 current_phase, 
                 session_info.get('selected_suggestions', []), 
-                user_type
+                user_type,
+                language
             )
             print(f"📋 言語切り替え: Phase={current_phase}, UserType={user_type}, サジェスチョン={len(greeting_data['suggestions'])}個")
         except Exception as e:
@@ -2198,7 +2203,8 @@ def handle_message(data):
             suggestions = get_suggestions_for_phase(
                 current_phase,
                 session_info.get('selected_suggestions', []),
-                user_type
+                user_type,
+                language
             )
             
             print(f"📋 サジェスチョン生成: Phase={current_phase}, UserType={user_type}, Count={len(suggestions)}")
