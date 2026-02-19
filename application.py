@@ -1706,8 +1706,9 @@ def handle_connect():
                 session_data[session_id]['relationship_style'] = relationship_style
                 
                 # 🎯 前回の続きからサジェスチョンを生成
-                current_phase = static_qa_data.get_current_phase(selected_count)
-                remaining_suggestions = static_qa_data.get_suggestions_for_phase(
+                from modules.static_qa_data import get_current_phase, get_suggestions_for_phase
+                current_phase = get_current_phase(selected_count)
+                remaining_suggestions = get_suggestions_for_phase(
                     current_phase,
                     selected_suggestions=previous_selections,
                     user_type=user_type
