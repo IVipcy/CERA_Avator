@@ -2094,18 +2094,17 @@ def handle_message(data):
             try:
                 from modules.static_qa_data import get_response_for_user, get_current_phase
                 
-                # まず静的Q&Aをチェック
+                # まず静的Q&Aをチェック（言語に応じたQ&Aデータを検索）
                 current_phase = get_current_phase(session_info.get('selected_suggestions_count', 0))
-                static_response = get_response_for_user(message, user_type, current_phase)
+                static_response = get_response_for_user(message, user_type, current_phase, language)
                 
                 if static_response:
-                    print(f"✅ 静的Q&Aヒット: {user_type} - {current_phase}")
+                    print(f"✅ 静的Q&Aヒット: {user_type} - {current_phase} - {language}")
             except Exception as e:
                 print(f"⚠️ 静的Q&A検索エラー: {e}")
             
             # RAG応答生成
             if chatbot:
-                # 🆕 静的Q&Aがあればそれを使用、なければRAG
                 if static_response:
                     response = static_response
                 else:
