@@ -1627,10 +1627,10 @@ def handle_connect():
             'user_type': client_user_type or None
         }
         
-        # 再訪問判定: user_typeが設定済み かつ サジェスチョン選択履歴がある
-        is_returning = bool(client_user_type) and len(client_selected) > 0
+        # 再訪問/再接続判定: user_typeが設定済みなら既に自己紹介済み
+        is_returning = bool(client_user_type)
         
-        # 初回訪問の場合
+        # 初回訪問の場合（user_type未選択 = まだ自己紹介を見ていない）
         if not is_returning:
             try:
                 # 🆕 京セラ 海音みら用: 自己紹介メッセージ
@@ -1678,35 +1678,29 @@ def handle_connect():
                 print(f"❌ 挨拶生成エラー: {e}")
                 emit('error', {'message': '初期化中にエラーが発生しました'})
         
-        # 🔄 再訪問者の場合（localStorageにuser_typeと選択履歴がある）
+        # 🔄 再接続/再訪問の場合（user_typeが設定済み = 自己紹介は表示済み）
         else:
             try:
                 user_type = client_user_type
                 previous_selections = client_selected
+                selected_count = len(previous_selections)
                 
-                welcome_back_message = "おかえりなさい！前回の続きからお話しできますね。どのテーマに興味がありますか？"
-                welcome_emotion = 'happy'
+                # サジェスチョン選択済みの場合は「おかえり」メッセージ
+                # 未選択の場合（mid-session再接続）はサジェスチョンだけ復元し、音声なし
+                if selected_count > 0:
+                    welcome_back_message = "おかえりなさい！前回の続きからお話しできますね。どのテーマに興味がありますか？"
+                    welcome_emotion = 'happy'
+                else:
+                    welcome_back_message = None
+                    welcome_emotion = 'neutral'
                 welcome_emotion = validate_emotion(welcome_emotion)
                 
-                # 音声生成
-                try:
-                    audio_data = generate_audio_by_language(
-                        welcome_back_message, 
-                        'ja', 
-                        emotion_params=welcome_emotion
-                    )
-                except Exception as e:
-                    print(f"❌ おかえり音声生成エラー: {e}")
-                    audio_data = None
-                
                 # 関係性レベルを計算（選択済みサジェスチョン数ベース）
-                selected_count = len(previous_selections)
                 rel_info = calculate_relationship_level(selected_count)
                 relationship_style = rel_info['style']
-                
                 session_data[session_id]['relationship_style'] = relationship_style
                 
-                # 🎯 前回の続きからサジェスチョンを生成
+                # 🎯 サジェスチョンを生成
                 from modules.static_qa_data import get_current_phase, get_suggestions_for_phase
                 current_phase = get_current_phase(selected_count)
                 client_language = session_data[session_id].get('language', 'ja')
@@ -1717,25 +1711,48 @@ def handle_connect():
                     language=client_language
                 )
                 
-                print(f"📍 選択済み: {selected_count}個, Phase: {current_phase}, 残り: {len(remaining_suggestions)}個")
+                print(f"📍 再接続/再訪問: 選択済み={selected_count}個, Phase={current_phase}, 残り={len(remaining_suggestions)}個")
                 
-                # 再訪問挨拶データ
-                greeting_data = {
-                    'message': welcome_back_message,
-                    'emotion': welcome_emotion,
-                    'audio': audio_data,
-                    'isGreeting': True,
-                    'language': 'ja',
-                    'voice_engine': 'elevenlabs' if use_elevenlabs else ('azure_speech' if use_azure_speech else 'openai_tts'),
-                    'relationshipLevel': relationship_style,
-                    'mentalState': session_data[session_id]['mental_state'],
-                    'suggestions': remaining_suggestions[:5]  # 最大5個まで表示
-                }
-                
-                emit('greeting', greeting_data)
-                
-                # 感情履歴を更新
-                update_emotion_history(session_id, welcome_emotion)
+                if welcome_back_message:
+                    # 再訪問（サジェスチョン選択済み）: おかえりメッセージ＋音声
+                    try:
+                        audio_data = generate_audio_by_language(
+                            welcome_back_message, 
+                            'ja', 
+                            emotion_params=welcome_emotion
+                        )
+                    except Exception as e:
+                        print(f"❌ おかえり音声生成エラー: {e}")
+                        audio_data = None
+                    
+                    greeting_data = {
+                        'message': welcome_back_message,
+                        'emotion': welcome_emotion,
+                        'audio': audio_data,
+                        'isGreeting': True,
+                        'language': 'ja',
+                        'voice_engine': 'elevenlabs' if use_elevenlabs else ('azure_speech' if use_azure_speech else 'openai_tts'),
+                        'relationshipLevel': relationship_style,
+                        'mentalState': session_data[session_id]['mental_state'],
+                        'suggestions': remaining_suggestions[:5]
+                    }
+                    emit('greeting', greeting_data)
+                    update_emotion_history(session_id, welcome_emotion)
+                else:
+                    # mid-session再接続: メッセージなし、サジェスチョンのみ復元
+                    print(f"🔄 mid-session再接続: サジェスチョンのみ復元")
+                    reconnect_data = {
+                        'message': '',
+                        'emotion': 'neutral',
+                        'audio': None,
+                        'isGreeting': True,
+                        'language': client_language,
+                        'voice_engine': 'elevenlabs' if use_elevenlabs else ('azure_speech' if use_azure_speech else 'openai_tts'),
+                        'relationshipLevel': relationship_style,
+                        'mentalState': session_data[session_id]['mental_state'],
+                        'suggestions': remaining_suggestions[:5]
+                    }
+                    emit('greeting', reconnect_data)
                 
                 # 初回フラグを更新
                 session_data[session_id]['first_interaction'] = False
