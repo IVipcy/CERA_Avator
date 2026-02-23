@@ -1093,8 +1093,9 @@ class RAGSystem:
             
             # 🆕 類似度が低すぎる場合は回答拒否
             # 注意: ChromaDBのスコアは「距離」なので、値が大きいほど類似度が低い
-            # 閾値: 1.5（コサイン距離で1.5以上は関連性が低いと判断）
-            if best_score > 1.5:
+            # 閾値: 2.5（実測値に基づき調整。2.5以上は関連性が低いと判断）
+            print(f"🔍 RAGスコア: 質問='{question[:30]}...' / 最高スコア={best_score:.3f}")
+            if best_score > 2.5:
                 print(f"⚠️ グラウンディングチェック: 信頼度低 (距離: {best_score:.2f})")
                 if language == 'en':
                     return "I'm sorry, but I don't have reliable information about that question. Please check Kyocera's official website for accurate information."

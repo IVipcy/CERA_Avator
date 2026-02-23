@@ -544,6 +544,8 @@ class ElevenLabsClient:
             dict: 最小限の専門用語辞書
         """
         return {
+            '海音みら': 'あまねみら',
+            '海音': 'あまね',
             '京セラ': 'きょうせら',
             'KYOCERA': 'きょうせら',
             'CERA': 'せら',
