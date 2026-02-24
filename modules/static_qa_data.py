@@ -67,18 +67,18 @@ business_qa_responses = {
             
             技術交流だけでなく、楽しみながら企業同士がつながる場づくりも大切にしています。例えば、「ミニ四駆企業対抗選手権」を定期的に開催していて、21の企業・団体が参加して、レースを通じて名刺交換や商談が生まれる、ユニークな交流の場になっています。
             
-            異種格闘技戦という技術交流イベントも定期的に開催しています。化学、物理、電気、材料など、色んな分野の専門家が集まります。名前は物騒ですけど、殴り合いません。技術で戦います。
-            
-            こうした交流から、新しいビジネスチャンスや協業のきっかけが生まれています。
+            「異種格闘技戦」という技術交流イベントも年に1回開催しています。化学、物理、電気、材料など、色んな分野の専門家が集まり、最大700名規模で、近年は200名ほどが参加しています。誰でも参加でき、現地参加は会場の定員約150名で抽選になります。名前は物騒ですけど、殴り合いません。異分野の技術や知見に触れる貴重な刺激の場です。
             [EMOTION:happy]
         """,
         
-        "CVCファンドって何？どんなスタートアップと組んでる？": """
-            CVC（コーポレートベンチャーキャピタル）は、企業がスタートアップに投資する仕組みです。京セラは「京セラベンチャー・イノベーションファンド1号」を運営しています。
+        "オープンイノベーションの成功事例は": """
+            面白い事例があります。「Possi（ポッシ）」という子ども用の仕上げ磨き専用歯ブラシです。
             
-            最近の投資先は、京都フュージョニアリング（核融合発電）、株式会社QunaSys（量子コンピューティング）、Cellid株式会社（細胞解析）、インスタリム株式会社（AI創薬）、株式会社LexxPluss（物流ロボット）などです。
+            京セラの圧電セラミック技術を使って、歯ブラシから音楽が歯を通じて聞こえる仕組みを作りました。「はみがきイヤイヤ期」のお子さんを持つ親御さんの悩みを解決する製品です。
             
-            エネルギー、量子技術、医療、物流など、幅広い分野のスタートアップと協業して、未来の技術を一緒に作っています。
+            ソニーのスタートアップ支援プログラムで事業アイデアを磨き、ライオンと共同開発しました。クラウドファンディングでは目標2,000万円を達成し、1,300人を超える方に支援いただきました。
+            
+            京セラの素材技術 × ソニーの事業化ノウハウ × ライオンの口腔ケア専門知識。3社の強みを掛け合わせた、オープンイノベーションの好事例です。
             [EMOTION:happy]
         """,
     },
@@ -86,20 +86,20 @@ business_qa_responses = {
     # Phase3: イベントとアバター
     'phase3_personal': {
         "ミニ四駆大会やワークショップに参加したい！": """
-            2025年10月に第4回ミニ四駆企業対抗選手権が開催されます。エントリー募集中です。
+            ミニ四駆企業対抗選手権は定期的に開催しています。エントリー情報はOpen Innovation Arenaの公式サイトで随時更新されています。
             
-            他にも、異業種の次世代リーダー向けの実践型ワークショップや、技術セミナーなども定期的に開催しています。
+            他にも、異業種の次世代リーダー向けの実践型ワークショップや、技術セミナーなども開催しています。
             
-            参加方法は京セラオープンイノベーションアリーナの公式サイトから申し込めます。イベント情報も随時更新されています。
+            最新のイベント情報や参加申し込みはぜひ公式サイトをチェックしてみてください。
             [EMOTION:happy]
         """,
         
         "協業の相談をしたい": """
             協業に興味を持っていただけて嬉しいです。
             
-            まずは相談から始めます。あなたの技術と京セラの技術でどんなことができるのか一緒に考えます。
+            まずはOpen Innovation Arenaの公式サイトからお問い合わせください。お互いのニーズとシーズが一致すれば、スムーズに進めば約1ヶ月ほどで契約まで進めます。
             
-            京セラオープンイノベーション推進部が窓口になっています。公式サイトからお問い合わせいただくか、イベントに参加して直接担当者と話すこともできます。
+            共創・協業の場合は、大きな承認プロセスはありません。企業規模も問いませんので、スタートアップの方も大企業の方もお気軽にどうぞ。イベントに参加して直接担当者と話すこともできます。
             [EMOTION:happy]
         """,
         
@@ -165,38 +165,38 @@ business_qa_responses_en = {
 
             Beyond technical exchanges, we value creating fun spaces for companies to connect. For example, we regularly host the "Mini 4WD Corporate Championship" where 21 companies and organizations participate, and business card exchanges and deals happen naturally through racing.
 
-            We also hold "cross-disciplinary battle" events where experts from chemistry, physics, electrical engineering, materials science and more come together. Despite the name, nobody gets punched — we fight with technology.
-
-            These interactions spark new business opportunities and collaboration.
+            We also hold an annual "Cross-Disciplinary Battle" event, attracting up to 700 participants — around 200 in recent years. Experts from chemistry, physics, electrical engineering, materials science and more come together. Anyone can join, though on-site attendance is limited to about 150 people by lottery. Despite the name, nobody gets punched — it's a valuable space for cross-field inspiration and technical exchange.
             [EMOTION:happy]
         """,
 
-        "what is the cvc fund": """
-            CVC (Corporate Venture Capital) is a system where corporations invest in startups. Kyocera operates the "Kyocera Venture Innovation Fund No. 1."
+        "what are some open innovation success stories": """
+            Here's a great example — "Possi," a toothbrush designed for children's finish-brushing.
 
-            Recent investments include Kyoto Fusioneering (nuclear fusion), QunaSys (quantum computing), Cellid (cell analysis), Instalimb (AI drug discovery), and LexxPluss (logistics robots).
+            Using Kyocera's piezoelectric ceramic technology, music travels through the teeth while brushing. It solves the challenge parents face when their kids resist brushing.
 
-            We're collaborating with startups across energy, quantum technology, healthcare, logistics, and more to build the technologies of the future together.
+            We developed the concept through Sony's Startup Acceleration Program (SSAP) and co-created the product with Lion Corporation. Our crowdfunding campaign exceeded its 20-million-yen goal with support from over 1,300 backers.
+
+            Kyocera's materials technology × Sony's business incubation × Lion's oral care expertise — it's a perfect example of what open innovation can achieve.
             [EMOTION:happy]
         """,
     },
 
     'phase3_personal': {
         "i want to join a mini 4wd event": """
-            The 4th Mini 4WD Corporate Championship is scheduled for October 2025. Entries are now open!
+            The Mini 4WD Corporate Championship is held regularly. Entry information is updated on the official Open Innovation Arena website.
 
-            We also regularly host hands-on workshops for next-generation leaders from different industries, as well as technical seminars.
+            We also host hands-on workshops for next-generation leaders from different industries, as well as technical seminars.
 
-            You can sign up through the official Kyocera Open Innovation Arena website. Event information is updated regularly.
+            Check the latest event information and sign up on the official website.
             [EMOTION:happy]
         """,
 
         "i'd like to discuss collaboration": """
             I'm glad you're interested in collaboration!
 
-            We start with a consultation. Let's think together about what your technology and Kyocera's technology can achieve.
+            Please start by reaching out through the Open Innovation Arena website. If your needs align with Kyocera's technological strengths, the process can move to contract in about one month.
 
-            The Kyocera Open Innovation Promotion Division serves as the contact point. You can reach out through the official website or attend an event to speak directly with our team.
+            For co-creation and collaboration, there are no major approval hurdles. Company size doesn't matter — whether you're a startup or a large enterprise, everyone is welcome. You can also attend our events to speak directly with the team.
             [EMOTION:happy]
         """,
 
@@ -315,7 +315,7 @@ business_suggestions = {
     'phase2_technical': [
         "京セラが挑戦する次世代技術は？",
         "京セラのオープンイノベーションの特徴は？",
-        "CVCファンドって何？どんなスタートアップと組んでる？",
+        "オープンイノベーションの成功事例は？",
     ],
     'phase3_personal': [
         "ミニ四駆大会やワークショップに参加したい！",
@@ -452,7 +452,7 @@ business_suggestions_en = {
     'phase2_technical': [
         "What next-gen technologies is Kyocera working on?",
         "What's unique about Kyocera's open innovation?",
-        "What is the CVC Fund?",
+        "What are some open innovation success stories?",
     ],
     'phase3_personal': [
         "I want to join a Mini 4WD event!",
@@ -485,7 +485,7 @@ suggestion_en_to_ja = {
     "what is the research center": "リサーチセンターはどういう施設",
     "what next-gen technologies is kyocera working on": "京セラが挑戦する次世代技術は",
     "what's unique about kyocera's open innovation": "京セラのオープンイノベーションの特徴は",
-    "what is the cvc fund": "CVCファンドって何？どんなスタートアップと組んでる",
+    "what are some open innovation success stories": "オープンイノベーションの成功事例は",
     "i want to join a mini 4wd event": "ミニ四駆大会やワークショップに参加したい",
     "i'd like to discuss collaboration": "協業の相談をしたい",
     "tell me more about mira amane": "海音みらについてもっと詳しく",
@@ -745,11 +745,27 @@ qa_media_data = {
         }
     },
     
-    # 🆕 ミニ四駆企業対抗選手権の詳細ページ
+    # ミニ四駆・イベント情報
     "ミニ四駆大会やワークショップに参加したい": {
         "link": {
-            "text": "第4回ミニ四駆企業対抗選手権の詳細を見る →",
-            "url": "https://www.kyocera.co.jp/rd-openinnovation/news/mini4wd.html"
+            "text": "Open Innovation Arena イベント情報 →",
+            "url": "https://www.kyocera.co.jp/rd-openinnovation/"
+        }
+    },
+    
+    # 協業の相談窓口
+    "協業の相談をしたい": {
+        "link": {
+            "text": "Open Innovation Arena お問い合わせ →",
+            "url": "https://www.kyocera.co.jp/rd-openinnovation/"
+        }
+    },
+    
+    # Possi協業成功事例
+    "オープンイノベーションの成功事例は": {
+        "link": {
+            "text": "Possi開発ストーリーを読む →",
+            "url": "https://www.kyocera.co.jp/rd-openinnovation/journal/possi_story.html"
         }
     }
 }

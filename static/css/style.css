@@ -1204,7 +1204,7 @@ button:hover {
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
-        max-height: 45vh !important;
+        max-height: 55vh !important;
         z-index: 100 !important;
         pointer-events: auto !important;
     }
@@ -1218,7 +1218,7 @@ button:hover {
         box-shadow: none !important;
         display: flex !important;
         flex-direction: column !important;
-        max-height: 45vh !important;
+        max-height: 55vh !important;
         pointer-events: auto !important;
     }
     
@@ -1483,7 +1483,7 @@ button:hover {
     
     /* チャットエリアの高さ調整 */
     .chat-section {
-        max-height: 40vh !important;
+        max-height: 50vh !important;
     }
     
     /* チャットコンテナは完全透明のまま */
@@ -1492,7 +1492,7 @@ button:hover {
     }
     
     .chat-messages {
-        max-height: calc(40vh - 60px) !important;
+        max-height: calc(50vh - 60px) !important;
         min-height: 100px !important;
         padding: 10px !important;
     }

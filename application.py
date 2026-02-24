@@ -702,13 +702,13 @@ def get_relationship_adjusted_greeting(language, relationship_style):
     """関係性レベルに応じた挨拶を生成（🆕 京セラ 海音みら版）"""
     greetings = {
         'ja': {
-            'formal': "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。7-8分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。",
+            'formal': "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。10分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。",
             'polite': "こんにちは！また会えて嬉しいです。今日はどんなお話をしましょうか？",
             'friendly': "やっほー！会いたかったよ〜！今日も楽しくお話しようね！",
             'casual': "おっす！元気にしてた？なんか面白い話ある？"
         },
         'en': {
-            'formal': "I'm Mira, the AI concierge at Kyocera Minato Mirai Research Center. I can help you learn about our open innovation initiatives, business events, and career opportunities. As we chat, your understanding level will increase. After about 7-8 minutes, you'll reach the max level and unlock a quiz and survey. Complete them to receive an original virtual background for Zoom or Google Meet!",
+            'formal': "I'm Mira, the AI concierge at Kyocera Minato Mirai Research Center. I can help you learn about our open innovation initiatives, business events, and career opportunities. As we chat, your understanding level will increase. After about 10 minutes, you'll reach the max level and unlock a quiz and survey. Complete them to receive an original virtual background for Zoom or Google Meet!",
             'polite': "Hello again! It's nice to see you. What would you like to talk about today?",
             'friendly': "Hey there! I missed you! Let's have fun chatting today!",
             'casual': "Yo! How've you been? Got any interesting stories?"
@@ -1636,7 +1636,7 @@ def handle_connect():
         if not is_returning:
             try:
                 # 🆕 京セラ 海音みら用: 自己紹介メッセージ
-                intro_message = "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。7-8分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。"
+                intro_message = "私は、京セラみなとみらいリサーチセンターのAIコンシェルジュのみらです。協業の取り組みやビジネスイベント、キャリア情報等について分かりやすくお伝えします。\n私とお話すると会話の回数に応じて理解度レベルが上がります。10分ほどの会話でレベルが最大になり、クイズとアンケートが出題されます。回答してくれた方には、ZoomやGoogleMeet等のWeb会議で利用できるオリジナル背景画像をプレゼント！ぜひ挑戦してみてください。"
                 intro_emotion = 'start'  # Startモーション使用
                 
                 # 感情を検証
