@@ -250,7 +250,12 @@ class RAGSystem:
                         
                         try:
                             collection = client.get_collection(collection_name)
-                            print(f"既存のコレクション '{collection_name}' を使用")
+                            doc_count = collection.count()
+                            if doc_count < 10:
+                                print(f"既存コレクションのドキュメント数が少ない({doc_count}件)。再構築します...")
+                                client.delete_collection(collection_name)
+                                raise Exception("再構築のため既存コレクションを削除")
+                            print(f"既存のコレクション '{collection_name}' を使用 ({doc_count}件)")
                         except:
                             collection = client.create_collection(collection_name)
                             print(f"新しいコレクション '{collection_name}' を作成")
@@ -299,8 +304,13 @@ class RAGSystem:
             # 初期データを準備
             documents = []
             
-            # uploadsディレクトリからファイルを読み込み
+            # uploadsディレクトリからファイルを読み込み（チャンク分割あり）
             uploads_dir = "uploads"
+            text_splitter = RecursiveCharacterTextSplitter(
+                chunk_size=300,
+                chunk_overlap=50,
+                separators=["\n\n", "\n【", "\n＜", "\n-", "\n", "。", "、"]
+            )
             if os.path.exists(uploads_dir):
                 for filename in os.listdir(uploads_dir):
                     if filename.endswith(".txt"):
@@ -310,11 +320,14 @@ class RAGSystem:
                                 content = f.read()
                                 if content.strip():
                                     from langchain.schema import Document
-                                    documents.append(Document(
-                                        page_content=content,
-                                        metadata={"source": filename}
-                                    ))
-                                    print(f"ファイル読み込み: {filename}")
+                                    chunks = text_splitter.split_text(content)
+                                    for i, chunk in enumerate(chunks):
+                                        if chunk.strip():
+                                            documents.append(Document(
+                                                page_content=chunk.strip(),
+                                                metadata={"source": filename, "chunk": i}
+                                            ))
+                                    print(f"ファイル読み込み: {filename} ({len(chunks)}チャンク)")
                         except Exception as e:
                             print(f"ファイル読み込みエラー ({filename}): {e}")
                 
