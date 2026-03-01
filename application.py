@@ -650,13 +650,14 @@ class ElevenLabsClient:
         
         data = {
             'text': processed_text,
-            'model_id': self.model_id,  # 環境変数から読み取ったモデルID
+            'model_id': self.model_id,
             'voice_settings': {
                 'stability': stability,
                 'similarity_boost': similarity_boost,
                 'style': style,
                 'use_speaker_boost': True
-            }
+            },
+            'speed': 1.15
         }
         
         try:
