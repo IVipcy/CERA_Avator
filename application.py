@@ -657,7 +657,7 @@ class ElevenLabsClient:
                 'style': style,
                 'use_speaker_boost': True
             },
-            'speed': 1.15
+            'speed': 1.3
         }
         
         try:

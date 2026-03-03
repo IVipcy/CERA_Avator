@@ -30,12 +30,9 @@ business_qa_responses = {
         """,
         
         "リサーチセンターはどういう施設": """
-            ここは2019年にできた京セラの研究開発専門の拠点です。未来の新しいビジネスを生み出すための実験場みたいな場所です。
-
-            首都圏に散らばってた3つの研究所を集めて、約700人の研究者が一緒に働いてます。AI、自動運転、エネルギー、通信とか、次の時代の技術を研究してます。
-
-            普通の研究所と違うのは、他の会社や大学、スタートアップと一緒にプロジェクトを進める「共創スペース」があることです。1階には工房もあって、アイデアソンとかハッカソンのイベントをよくやってます。
-
+            2019年にできた京セラの研究開発拠点で、約700人の研究者がAI、自動運転、エネルギーなど次世代技術を研究しています。
+            
+            他の会社や大学、スタートアップと共創できるスペースや工房もあって、アイデアソンやハッカソンも開催しています。
             [EMOTION:neutral]
         """
     },
@@ -43,9 +40,7 @@ business_qa_responses = {
     # Phase2: 技術や詳細の掘り下げ
     'phase2_technical': {
         "京セラが挑戦する次世代技術は": """
-            今、京セラが力を入れているのは、核融合エネルギー、水中通信技術、完全自動運転などです。
-            
-            核融合は世界が注目する次世代エネルギー。京都フュージョニアリングというスタートアップに投資して、エネルギー革命に挑戦しています。
+            今、京セラが力を入れているのは、水中通信技術、完全自動運転などです。
             
             水中通信技術は、海の"最後のフロンティア"を開拓する技術。水中ドローンや海洋調査への応用が期待されています。
             
@@ -54,7 +49,7 @@ business_qa_responses = {
         """,
         
         "日常に隠れている京セラの技術は": """
-            例えば、自動車の自動運転システムに使われるカメラレンズや、工場の製品検査に使われる産業用カメラのレンズ。京セラはFA/マシンビジョン分野や車載分野で高精度な光学部品を作ってます。
+            例えば、自動車の自動運転システムに使われるカメラレンズ。京セラは車載分野で高精度な光学部品を作ってます。
             
             それから、サファイアガラスみたいな硬い素材の結晶を育てる技術も持ってます。私たちの言葉では、結晶を「育てる」と言ったりします。生き物じゃないですけど、すごく愛着がもてます。
             
@@ -63,22 +58,16 @@ business_qa_responses = {
         """,
         
         "京セラのオープンイノベーションの特徴は": """
-            京セラは社外の技術や知見を積極的に取り入れています。
+            京セラは楽しみながら企業同士がつながる場づくりを大切にしています。「ミニ四駆企業対抗選手権」では21の企業・団体が参加して、レースを通じて名刺交換や商談が生まれています。
             
-            技術交流だけでなく、楽しみながら企業同士がつながる場づくりも大切にしています。例えば、「ミニ四駆企業対抗選手権」を定期的に開催していて、21の企業・団体が参加して、レースを通じて名刺交換や商談が生まれる、ユニークな交流の場になっています。
-            
-            「異種格闘技戦」という技術交流イベントも年に1回開催しています。化学、物理、電気、材料など、色んな分野の専門家が集まり、最大700名規模で、近年は200名ほどが参加しています。誰でも参加でき、現地参加は会場の定員約150名で抽選になります。名前は物騒ですけど、殴り合いません。異分野の技術や知見に触れる貴重な刺激の場です。
+            「異種格闘技戦」という年1回の技術交流イベントもあります。色んな分野の専門家が最大700名規模で集まります。名前は物騒ですけど、殴り合いません。
             [EMOTION:happy]
         """,
         
         "オープンイノベーションの成功事例は": """
-            面白い事例があります。「Possi（ポッシ）」という子ども用の仕上げ磨き専用歯ブラシです。
+            「Possi」という子ども用歯ブラシがあります。京セラの圧電セラミック技術で、歯磨き中に骨伝導で音楽が聞こえる仕組みです。歯磨き嫌いのお子さんを持つ親御さんの悩みを解決しました。
             
-            京セラの圧電セラミック技術を使って、歯ブラシから音楽が歯を通じて聞こえる仕組みを作りました。「はみがきイヤイヤ期」のお子さんを持つ親御さんの悩みを解決する製品です。
-            
-            ソニーのスタートアップ支援プログラムで事業アイデアを磨き、ライオンと共同開発しました。クラウドファンディングでは目標2,000万円を達成し、1,300人を超える方に支援いただきました。
-            
-            京セラの素材技術 × ソニーの事業化ノウハウ × ライオンの口腔ケア専門知識。3社の強みを掛け合わせた、オープンイノベーションの好事例です。
+            ソニーの事業化支援とライオンの口腔ケア技術を掛け合わせた3社協業の好事例で、クラウドファンディングでも1,300人以上の支援を集めました。
             [EMOTION:happy]
         """,
     },
@@ -97,18 +86,20 @@ business_qa_responses = {
         "協業の相談をしたい": """
             協業に興味を持っていただけて嬉しいです。
             
-            まずはOpen Innovation Arenaの公式サイトからお問い合わせください。お互いのニーズとシーズが一致すれば、スムーズに進めば約1ヶ月ほどで契約まで進めます。
+            まずはオープンイノベーションアリーナの公式サイトからお問い合わせください。お互いのニーズとシーズが一致すれば、スムーズに進めば約1ヶ月ほどで契約まで進めます。
             
             共創・協業の場合は、大きな承認プロセスはありません。企業規模も問いませんので、スタートアップの方も大企業の方もお気軽にどうぞ。イベントに参加して直接担当者と話すこともできます。
             [EMOTION:happy]
         """,
         
-        "海音みらについてもっと詳しく！": """
-            私は京セラみなとみらいリサーチセンターのAIコンシェルジュです。
+        "海音みらのプライベートが気になる！": """
+            実は海鮮丼が大好きで、みなとみらい周辺のお店によくお昼を食べに行きます。サーモンとイクラの組み合わせが最高です。
             
-            京セラのオープンイノベーションや技術、イベント情報について、みなさんにわかりやすくお伝えするのが私の役割です。
+            あと、実験は正確にできるのに、料理は苦手なんです。レシピの「適量」が最大の難敵で...計量すれば作れるんですけどね。
             
-            協業に興味がある方も、京セラの技術を知りたい方も、気軽に話しかけてくださいね。何でもお答えします！
+            ヘッドホンは実は遮音用なんですけど、たまにシティポップも聴いてます。竹内まりやさんと山下達郎さんが特に好きです。
+            
+            他にも気になることがあったら、何でも聞いてくださいね。
             [EMOTION:happy]
         """,
     }
@@ -139,20 +130,16 @@ business_qa_responses_en = {
         """,
 
         "what is the research center": """
-            This facility was established in 2019 as Kyocera's dedicated R&D hub. It's like an experimental playground for creating future businesses.
+            Established in 2019, this is Kyocera's R&D hub where about 700 researchers work on AI, autonomous driving, energy, and other next-generation technologies.
 
-            We brought together three research labs that were scattered across the Tokyo metropolitan area, and now about 700 researchers work here together on AI, autonomous driving, energy, telecommunications, and other next-generation technologies.
-
-            What makes it unique is the "co-creation space" where we collaborate with other companies, universities, and startups. There's even a workshop on the first floor where we host ideathons and hackathons regularly.
+            It also has co-creation spaces and workshops for collaborating with other companies, universities, and startups — we host ideathons and hackathons here regularly.
             [EMOTION:neutral]
         """
     },
 
     'phase2_technical': {
         "what next-gen technologies is kyocera working on": """
-            Right now, Kyocera is focusing on nuclear fusion energy, underwater communication technology, and fully autonomous driving.
-
-            Nuclear fusion is a next-generation energy source the world is watching. We've invested in Kyoto Fusioneering, a startup tackling the energy revolution.
+            Right now, Kyocera is focusing on underwater communication technology and fully autonomous driving.
 
             Underwater communication is a technology for exploring the ocean, the "last frontier." It has potential applications in underwater drones and marine research.
 
@@ -161,22 +148,16 @@ business_qa_responses_en = {
         """,
 
         "what's unique about kyocera's open innovation": """
-            Kyocera actively incorporates external technologies and expertise.
+            Kyocera values creating fun spaces for companies to connect. In the "Mini 4WD Corporate Championship," 21 companies and organizations participate, and business card exchanges and deals happen naturally through racing.
 
-            Beyond technical exchanges, we value creating fun spaces for companies to connect. For example, we regularly host the "Mini 4WD Corporate Championship" where 21 companies and organizations participate, and business card exchanges and deals happen naturally through racing.
-
-            We also hold an annual "Cross-Disciplinary Battle" event, attracting up to 700 participants — around 200 in recent years. Experts from chemistry, physics, electrical engineering, materials science and more come together. Anyone can join, though on-site attendance is limited to about 150 people by lottery. Despite the name, nobody gets punched — it's a valuable space for cross-field inspiration and technical exchange.
+            There's also an annual "Cross-Disciplinary Battle" event where experts from various fields gather — up to 700 participants. Despite the name, nobody gets punched!
             [EMOTION:happy]
         """,
 
         "what are some open innovation success stories": """
-            Here's a great example — "Possi," a toothbrush designed for children's finish-brushing.
+            "Possi" is a children's toothbrush that plays music through bone conduction while brushing, using Kyocera's piezoelectric ceramic technology. It solves the challenge parents face when kids resist brushing.
 
-            Using Kyocera's piezoelectric ceramic technology, music travels through the teeth while brushing. It solves the challenge parents face when their kids resist brushing.
-
-            We developed the concept through Sony's Startup Acceleration Program (SSAP) and co-created the product with Lion Corporation. Our crowdfunding campaign exceeded its 20-million-yen goal with support from over 1,300 backers.
-
-            Kyocera's materials technology × Sony's business incubation × Lion's oral care expertise — it's a perfect example of what open innovation can achieve.
+            It's a collaboration between Kyocera, Sony's startup program, and Lion Corporation's oral care expertise — and our crowdfunding gathered support from over 1,300 backers.
             [EMOTION:happy]
         """,
     },
@@ -200,12 +181,14 @@ business_qa_responses_en = {
             [EMOTION:happy]
         """,
 
-        "tell me more about mira amane": """
-            I'm the AI concierge at Kyocera Minato Mirai Research Center.
+        "tell me about mira's private life": """
+            I actually love seafood rice bowls — the salmon and salmon roe combo is my favorite. I often grab lunch near Minato Mirai.
 
-            My role is to make Kyocera's open innovation, technologies, and event information easy to understand for everyone.
+            Fun fact: I can run precise experiments, but I'm terrible at cooking. "A pinch of salt" is my biggest enemy — if I can measure it, I can make it though.
 
-            Whether you're interested in collaboration or just want to learn about Kyocera's technology, feel free to chat with me anytime. I'm happy to help!
+            My headphones are actually for noise isolation, but I do listen to city pop sometimes. Takeuchi Mariya and Yamashita Tatsuro are my favorites.
+
+            Feel free to ask me anything else you're curious about!
             [EMOTION:happy]
         """,
     }
@@ -249,7 +232,7 @@ student_qa_responses_en = {
 
     'phase2_technical': {
         "where is kyocera tech hidden in daily life": """
-            For example, camera lenses used in autonomous driving systems and industrial cameras for factory inspections. Kyocera makes high-precision optical components for machine vision and automotive applications.
+            For example, camera lenses used in autonomous driving systems. Kyocera makes high-precision optical components for automotive applications.
 
             We also have technology for growing crystals of hard materials like sapphire glass. In our field, we say we "grow" crystals. They're not alive, but you really do get attached to them.
 
@@ -320,7 +303,7 @@ business_suggestions = {
     'phase3_personal': [
         "ミニ四駆大会やワークショップに参加したい！",
         "協業の相談をしたい",
-        "海音みらについてもっと詳しく！",
+        "海音みらのプライベートが気になる！",
     ]
 }
 
@@ -364,7 +347,7 @@ student_qa_responses = {
     # Phase2: 先輩のリアルな話
     'phase2_technical': {
         "日常に隠れている京セラの技術は": """
-            例えば、自動車の自動運転システムに使われるカメラレンズや、工場の製品検査に使われる産業用カメラのレンズ。京セラはFA/マシンビジョン分野や車載分野で高精度な光学部品を作ってます。
+            例えば、自動車の自動運転システムに使われるカメラレンズ。京セラは車載分野で高精度な光学部品を作ってます。
             
             それから、サファイアガラスみたいな硬い素材の結晶を育てる技術も持ってます。私たちの言葉では、結晶を「育てる」って言うんです。生き物じゃないですけど、すごく愛着がもてます。
             
@@ -457,7 +440,7 @@ business_suggestions_en = {
     'phase3_personal': [
         "I want to join a Mini 4WD event!",
         "I'd like to discuss collaboration",
-        "Tell me more about Mira Amane!",
+        "Tell me about Mira's private life!",
     ]
 }
 
@@ -488,7 +471,7 @@ suggestion_en_to_ja = {
     "what are some open innovation success stories": "オープンイノベーションの成功事例は",
     "i want to join a mini 4wd event": "ミニ四駆大会やワークショップに参加したい",
     "i'd like to discuss collaboration": "協業の相談をしたい",
-    "tell me more about mira amane": "海音みらについてもっと詳しく",
+    "tell me about mira's private life": "海音みらのプライベートが気になる",
     "what kind of people work here": "どんな人が働いているの",
     "where is kyocera tech hidden in daily life": "日常に隠れている京セラの技術は",
     "what makes the work environment attractive": "働く環境の魅力は",
@@ -688,6 +671,11 @@ qa_media_data = {
     "日常に隠れている京セラの技術は": {
         "images": [
             {
+                "url": "/static/media/Kyocera/cameramodule.png",
+                "caption": "車載カメラモジュール",
+                "alt": "京セラの車載カメラモジュール"
+            },
+            {
                 "url": "/static/media/Kyocera/safaia.png",
                 "caption": "サファイアガラス",
                 "alt": "サファイアガラス製品"
@@ -698,10 +686,24 @@ qa_media_data = {
                 "alt": "京セラの光学部品"
             }
         ],
-        # 🆕 光学部品事業サイトへのリンク
         "link": {
             "text": "光学部品について詳しく見る →",
             "url": "https://www.kyocera.co.jp/prdct/optec/index.html"
+        }
+    },
+    
+    # 次世代技術
+    "京セラが挑戦する次世代技術は": {
+        "images": [
+            {
+                "url": "/static/media/Kyocera/catalog_underwater_vlc_060.jpg",
+                "caption": "水中通信技術のイメージ",
+                "alt": "京セラの水中通信技術"
+            }
+        ],
+        "link": {
+            "text": "スリープテック sNAPout について詳しく →",
+            "url": "https://www.kyocera.co.jp/rd-openinnovation/catalog/snapout.html"
         }
     },
     
@@ -721,7 +723,7 @@ qa_media_data = {
         }
     },
     
-    "協業やイベントに参加したい": {
+    "京セラのオープンイノベーションの特徴は": {
         "videos": [
             {
                 "url": "/static/media/Kyocera/isyumv.mp4",
@@ -730,10 +732,9 @@ qa_media_data = {
                 "alt": "異種格闘技戦イベントの動画"
             }
         ],
-        # 🆕 外部リンク追加
         "link": {
-            "text": "イベント情報を見る →",
-            "url": "https://www.kyocera.co.jp/rd/open-innovation/events/"
+            "text": "Open Innovation Arena →",
+            "url": "https://www.kyocera.co.jp/rd-openinnovation/"
         }
     },
     
@@ -747,6 +748,18 @@ qa_media_data = {
     
     # ミニ四駆・イベント情報
     "ミニ四駆大会やワークショップに参加したい": {
+        "images": [
+            {
+                "url": "/static/media/Kyocera/mini4wd_b-max_gp2025_030.jpg",
+                "caption": "ミニ四駆企業対抗選手権の様子",
+                "alt": "ミニ四駆大会の会場風景"
+            },
+            {
+                "url": "/static/media/Kyocera/mini4wd_b-max_gp2025_020.jpg",
+                "caption": "参加企業のミニ四駆マシン",
+                "alt": "各企業のミニ四駆マシン"
+            }
+        ],
         "link": {
             "text": "Open Innovation Arena イベント情報 →",
             "url": "https://www.kyocera.co.jp/rd-openinnovation/"
@@ -763,9 +776,16 @@ qa_media_data = {
     
     # Possi協業成功事例
     "オープンイノベーションの成功事例は": {
+        "images": [
+            {
+                "url": "/static/media/Kyocera/possi.jpg",
+                "caption": "Possi（ポッシ）- 子ども用仕上げ磨き専用歯ブラシ",
+                "alt": "Possi歯ブラシ製品画像"
+            }
+        ],
         "link": {
-            "text": "Possi開発ストーリーを読む →",
-            "url": "https://www.kyocera.co.jp/rd-openinnovation/journal/possi_story.html"
+            "text": "Possiニュースリリースを読む →",
+            "url": "https://www.kyocera.co.jp/news/2020/1208_annv.html"
         }
     }
 }
