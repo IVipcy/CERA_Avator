@@ -347,7 +347,6 @@
   - オープンイノベーションにより異業種3社の強みを掛け合わせた好事例
 - 詳細記事：
   - https://www.kyocera.co.jp/rd-openinnovation/journal/possi_story.html
-  - https://www.kyocera.co.jp/rd-openinnovation/journal/possi_sale.html
 
 【異種格闘技戦イベントの詳細】:
 - 開催頻度：年1回
